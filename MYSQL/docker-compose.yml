@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  db:
+    image: mysql/mysql-server:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456789Nba*
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: db_ferna
+      MYSQL_PASSWORD: fernaNba*
+  ports:
+    - 3306:3306
+  volumes:
+    - dbdata:/var/lib/mysql
+volumes:
+  dbdata:
