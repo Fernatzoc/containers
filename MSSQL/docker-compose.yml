@@ -2,7 +2,7 @@ version: '3'
 services:
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
+    container_name: sqlServerDocker
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=6F@ANy#5nowY4p
