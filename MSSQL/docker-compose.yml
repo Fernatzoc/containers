@@ -1,15 +1,22 @@
 version: '3'
+
 services:
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlServerDocker
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=6F@ANy#5nowY4p
+      - SA_PASSWORD=${SQL_SERVER_SA_PASSWORD}
       - MSSQL_PID=Express
     ports:
-      - 1212:1433
+      - 1433:1433
     volumes:
       - dbdata:/var/opt/mssql
+    networks:
+      - mssql_network
+
+networks:
+  mssql_network:
+
 volumes:
   dbdata:

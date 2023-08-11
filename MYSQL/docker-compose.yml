@@ -2,16 +2,22 @@ version: '3'
 
 services:
   db:
-    image: mysql/mysql-server:8.0
-    container_name: mysql
+    image: mysql:8.0
+    container_name: mysqlDocker
     environment:
-      MYSQL_ROOT_PASSWORD: 123456789Nba*
-      MYSQL_DATABASE: app_db
-      MYSQL_USER: db_ferna
-      MYSQL_PASSWORD: fernaNba*
-  ports:
-    - 3306:3306
-  volumes:
-    - dbdata:/var/lib/mysql
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - mysql_network
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+networks:
+  mysql_network:
+
 volumes:
   dbdata:
