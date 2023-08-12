@@ -9,6 +9,8 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_AUTHENTICATION_PLUGIN: 'caching_sha2_password'
+      MYSQL_HOST_CACHE_SIZE: 0
+      TZ: 'Etc/GMT+6'
     ports:
       - 3306:3306
     volumes:
