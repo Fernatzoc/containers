@@ -11,12 +11,13 @@ services:
     ports:
       - 1433:1433
     volumes:
-      - dbdata:/var/opt/mssql
+      - mssqldbdata:/var/opt/mssql
     networks:
       - mssql_network
 
 networks:
   mssql_network:
 
+
 volumes:
-  dbdata:
+  mssqldbdata:
