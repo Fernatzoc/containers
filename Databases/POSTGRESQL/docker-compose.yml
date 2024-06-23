@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: VaPoeUZffzHB9q
+      POSTGRES_PASSWORD: kBmpSSvzJ7bQf3
+      POSTGRES_DB: initial_db
+    volumes:
+      - db_data_postgres:/var/lib/postgresql/data
+
+volumes:
+  db_data_postgres:
+    driver: local
+
+networks:
+  postgres_network:
+    driver: bridge
