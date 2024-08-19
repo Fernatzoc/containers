@@ -1,0 +1,24 @@
+services:
+  mysqlDB:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      TZ: 'Etc/GMT+6'
+    ports:
+      - 3306:3306
+    volumes:
+      - mysqlData:/var/lib/mysql
+      - ./my.cnf:/etc/my.cnf
+      - ./mysql_run:/var/run/mysqld
+      - ./certs:/etc/mysql/certs
+    networks:
+      - db_network
+    restart: unless-stopped
+
+networks:
+  db_network:
+
+
+volumes:
+  mysqlData:

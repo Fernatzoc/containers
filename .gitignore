@@ -1,3 +1,5 @@
 /Databases/MYSQL/MariaDB/.env
-/Databases/MYSQL/Mysql8/Data
+/Databases/MYSQL/MysqlLocal/.env
+/Databases/MYSQL/MysqlProdu/.env
 /Databases/MSSQL/.env
+
