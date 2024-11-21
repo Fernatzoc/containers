@@ -6,7 +6,6 @@ addons-custom-local/
 .user_data_uid_*
 chromedriver_*
 config/odoo.conf
-config/*.odoo.conf
 .env
 .venv
 docker-compose.yaml
