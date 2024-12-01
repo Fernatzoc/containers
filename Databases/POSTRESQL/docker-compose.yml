@@ -1,21 +1,23 @@
 services:
-  db:
-    image: postgres:latest
-    container_name: postgresLocal
-    restart: always
-    ports:
-      - 5432:5432
+  postgres:
+    image: ${DB_IMAGE}
+    container_name: ${DB_HOST}
+    restart: unless-stopped
     environment:
-      POSTGRES_USER: VaPoeUZffzHB9q
-      POSTGRES_PASSWORD: kBmpSSvzJ7bQf3
-      POSTGRES_DB: initial_db
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
     volumes:
-      - db_data_postgres:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+      - ./logs:/var/log/postgresql
 
 volumes:
-  db_data_postgres:
+  postgres_data:
     driver: local
 
 networks:
-  postgres_network:
-    driver: bridge
+  default:
+    name: ${NETWORK_NAME}
+    external: true

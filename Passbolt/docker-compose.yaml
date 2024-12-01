@@ -1,0 +1,37 @@
+services:
+  dbPassbolt:
+    container_name: dbPassbolt
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - database_volume:/var/lib/mysql
+
+  passbolt:
+    container_name: passbolt
+    image: passbolt/passbolt:4.10.1-1-ce
+    restart: unless-stopped
+    depends_on:
+      - dbPassbolt
+    environment:
+      APP_FULL_BASE_URL: ${APP_FULL_BASE_URL}
+      DATASOURCES_DEFAULT_HOST: ${DATASOURCES_DEFAULT_HOST}
+      DATASOURCES_DEFAULT_USERNAME: ${DATASOURCES_DEFAULT_USERNAME}
+      DATASOURCES_DEFAULT_PASSWORD: ${DATASOURCES_DEFAULT_PASSWORD}
+      DATASOURCES_DEFAULT_DATABASE: ${DATASOURCES_DEFAULT_DATABASE}
+    volumes:
+      - gpg_volume:/etc/passbolt/gpg
+      - jwt_volume:/etc/passbolt/jwt
+    command: [ "/usr/bin/wait-for.sh", "-t", "0", "dbPassbolt:3306", "--", "/docker-entrypoint.sh" ]
+    ports:
+      - 80:80
+      - 443:443
+
+volumes:
+  database_volume:
+  gpg_volume:
+  jwt_volume:
