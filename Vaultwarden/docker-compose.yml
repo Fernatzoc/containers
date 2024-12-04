@@ -1,0 +1,41 @@
+services:
+  # mariadb:
+  #   image: mariadb:latest
+  #   environment:
+  #     - MYSQL_DATABASE=vaultwarden
+  #     - MYSQL_USER=vaultwarden
+  #     - MYSQL_PASSWORD=${MARIADB_PASSWORD}
+  #     - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+  #     - MARIADB_AUTO_UPGRADE=1
+  #   volumes:
+  #     - ./mariadb_data:/var/lib/mysql
+  #   command: --default-storage-engine innodb
+  #   restart: unless-stopped
+  #   healthcheck:
+  #     test: mysqladmin -p${MARIADB_ROOT_PASSWORD} ping -h localhost
+  #     interval: 20s
+  #     start_period: 10s
+  #     timeout: 10s
+  #     retries: 3
+
+  vaultwarden:
+    image: vaultwarden/server:latest
+    # depends_on:
+    #   - mariadb
+    environment:
+      - ADMIN_TOKEN=${ADMIN_TOKEN}
+      - DATABASE_URL=mysql://root:RKH2eSmXNO3PomDkxv@172.20.70.250/Vaultwarden
+      - WEBSOCKET_ENABLED=true
+      - SIGNUPS_ALLOWED=true
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_FROM=${SMTP_FROM}
+      - SMTP_FROM_NAME=${SMTP_FROM_NAME}
+      - SMTP_USERNAME=${SMTP_USERNAME}
+      - SMTP_PASSWORD=${SMTP_PASSWORD}
+      - SMTP_TIMEOUT=${SMTP_TIMEOUT}
+      - ORG_CREATION_USERS=${ORG_CREATION_USERS}
+    volumes:
+      - ./vw_data:/data
+    ports:
+      - 17881:80
+      - 17882:3012
